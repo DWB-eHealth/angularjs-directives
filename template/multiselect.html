@@ -1,3 +1,20 @@
 <div>
-	
+  <div class="add-item-ctrl">
+    <section class="item-box">
+      <ul class="items">
+        <li ng-repeat="element in leftList" ng-click="leftSelectedItems[element] = !!!leftSelectedItems[element]" ng-class="{sel: leftSelectedItems[element]}">{{ element }}</li>
+      </ul>
+    </section>
+    <div class="actions">
+      <button type="button" class="btn btn-default btn-xs" title="add to the right" ng-click="moveToRight()"><span class="glyphicon glyphicon-chevron-right"></span> </button>
+      <button type="button" class="btn btn-default btn-xs" title="add to the left"  ng-click="moveToLeft()"><span class="glyphicon glyphicon-chevron-left"></span> </button>
+      <button type="button" class="btn btn-default btn-xs" title="add all to the right" ng-click="moveAllToRight()"><span class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-chevron-right"></span> </button>
+      <button type="button" class="btn btn-default btn-xs" title="add all to the left" ng-click="moveAllToLeft()"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-left"></span> </button>
+    </div>
+    <section class="item-box">
+      <ul class="items">
+        <li ng-repeat="element in rightList" ng-click="rightSelectedItems[element] = !!!rightSelectedItems[element]" ng-class="{sel: rightSelectedItems[element]}">{{ element }}</li>
+      </ul>
+    </section>
+  </div>
 </div>

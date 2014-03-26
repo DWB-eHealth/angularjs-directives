@@ -1,0 +1,12 @@
+{
+    "name": "angular-multiselect",
+    "version": "0.0.1",
+    "private": true,
+    "keywords": ["angular", "multiselect"],
+    "dependencies": {
+        "angular": null
+    },
+    "devDependencies": {
+        "angular-mocks": null
+    }
+}

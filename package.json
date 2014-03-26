@@ -1,0 +1,12 @@
+{
+    "author": "ThoughtWorks",
+    "name": "ui-multiselect",
+    "version": "0.0.1",
+    "homepage": "https://github.com/tw-msf/angular-multiselect",
+    "dependencies": {},
+    "devDependencies": {
+        "karma": "*",
+        "karma-jasmine": "*",
+        "karma-chrome-launcher": "*"
+    }
+}
