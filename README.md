@@ -11,3 +11,6 @@ Multiselect Directive for AngularJS Apps
   ```html
   <multselect left-list="leftListVar" right-list="rightListVar"></multiselect>
   ```
+  
+### Screenshot:
+![alt text](img/screenshot.png "Screenshot")
