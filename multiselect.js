@@ -57,7 +57,7 @@ multiselectModule.directive('multiselect', function() {
             leftList: "=",
             rightList: "="
         },
-        templateUrl: 'template/multiselect.html',
+        templateUrl: 'js/lib/angular-multiselect/template/multiselect.html',
         replace: true,
         controller: 'MultiSelectController'
     };
