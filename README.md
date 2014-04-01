@@ -13,4 +13,4 @@ Multiselect Directive for AngularJS Apps
   ```
   
 ### Screenshot:
-![alt text](img/screenshot.png "Screenshot")
+![alt text](src/multiselect/docs/screenshot.png "Screenshot")
