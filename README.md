@@ -29,9 +29,11 @@ This directive can be used to equate two fields on a form and sets the validity 
 * Add attribute _equals_ to any form tag passing the model of the field against which it should be equated. See below example.
 
   ```html
+  <div>
   <form name="form">
     <input type="password" name="password" id="password" ng-model="user.password" required>
-    <input type="password" name="confPassword" id="confPassword" ng-model="user.confirmPassword" equals="{{ user.password }}" required>
+    <input type="password" name="confPassword" id="confPassword" ng-model="user.confirmPassword" 
+    	equals="{{ user.password }}" required>
 	  <div ng-show="form.confPassword.$dirty &amp;&amp; form.confPassword.$invalid">
 		  <span ng-show="form.confPassword.$error.required">Confirm your password.</span>
 		  <span ng-show="form.confPassword.$error.notEqual">Passwords do not match.</span>
