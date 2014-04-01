@@ -8,11 +8,20 @@ multiselectModule.controller('MultiSelectController', ['$scope',
         var shiftItems = function(selectedItems, fromList, toList) {
             for (var index in selectedItems) {
                 var selectedItem = selectedItems[index];
-                var elementIndex = fromList.indexOf(selectedItem);
-                toList.push(selectedItem);
+                var elementIndex = getFromElementIndex(fromList, selectedItem);
+                toList.push(fromList[elementIndex]);
                 fromList.splice(elementIndex, 1);
             }
         };
+
+        var getFromElementIndex = function(fromList, itemId) {
+            for (var index in fromList) {
+                if (fromList[index][$scope.name] === itemId)
+                    return index;
+            }
+            return -1;
+        };
+
 
         var getSelectedItems = function(selectedItems) {
             var selections = [];
@@ -39,15 +48,22 @@ multiselectModule.controller('MultiSelectController', ['$scope',
         };
 
         $scope.moveAllToLeft = function() {
-            shiftItems(angular.copy($scope.rightList), $scope.rightList, $scope.leftList);
+            for (var index in $scope.rightList) {
+                $scope.leftList.push($scope.rightList[index]);
+            }
+            $scope.rightList = [];
             clearSelectedItems();
         };
 
         $scope.moveAllToRight = function() {
-            shiftItems(angular.copy($scope.leftList), $scope.leftList, $scope.rightList);
+            for (var index in $scope.leftList) {
+                $scope.rightList.push($scope.leftList[index]);
+            }
+            $scope.leftList = [];
             clearSelectedItems();
         };
     }
+
 ]);
 
 multiselectModule.directive('multiselect', function() {
@@ -55,7 +71,8 @@ multiselectModule.directive('multiselect', function() {
         restrict: 'EA',
         scope: {
             leftList: "=",
-            rightList: "="
+            rightList: "=",
+            name: "@"
         },
         templateUrl: 'js/lib/angularjs-directives/template/multiselect/multiselect.html',
         replace: true,

@@ -10,8 +10,27 @@ describe('multiselect', function() {
         $controller('MultiSelectController', {
             $scope: scope
         });
-        scope.leftList = ['foo', 'bar', 'for', 'each'];
-        scope.rightList = ['abc', 'def'];
+        scope.leftList = [{
+            name: 'foo',
+            id: "1"
+        }, {
+            name: 'bar',
+            id: "2"
+        }, {
+            name: 'for',
+            id: "3"
+        }, {
+            name: 'each',
+            id: "4"
+        }];
+        scope.rightList = [{
+            name: 'abc',
+            id: "6"
+        }, {
+            name: 'def',
+            id: "7"
+        }];
+        scope.name = "name";
     }));
 
     afterEach(function() {
@@ -28,7 +47,19 @@ describe('multiselect', function() {
 
         scope.moveToRight();
 
-        expect(scope.rightList).toEqual(['abc', 'def', 'bar', 'for']);
+        expect(scope.rightList).toEqual([{
+            name: 'abc',
+            id: "6"
+        }, {
+            name: 'def',
+            id: "7"
+        }, {
+            name: 'bar',
+            id: "2"
+        }, {
+            name: 'for',
+            id: '3'
+        }]);
     });
 
     it('should shift selectedItems from right to left', function() {
@@ -39,18 +70,68 @@ describe('multiselect', function() {
 
         scope.moveToLeft();
 
-        expect(scope.leftList).toEqual(['foo', 'bar', 'for', 'each', 'abc']);
+        expect(scope.leftList).toEqual([{
+            name: 'foo',
+            id: '1'
+        }, {
+            name: 'bar',
+            id: "2"
+        }, {
+            name: 'for',
+            id: '3'
+        }, {
+            name: 'each',
+            id: '4'
+        }, {
+            name: 'abc',
+            id: '6'
+        }]);
     });
 
     it('should shift all items from right to left', function() {
         scope.moveAllToLeft();
-
-        expect(scope.leftList).toEqual(['foo', 'bar', 'for', 'each', 'abc', 'def']);
+        expect(scope.leftList).toEqual([{
+            name: 'foo',
+            id: '1'
+        }, {
+            name: 'bar',
+            id: "2"
+        }, {
+            name: 'for',
+            id: '3'
+        }, {
+            name: 'each',
+            id: '4'
+        }, {
+            name: 'abc',
+            id: '6'
+        }, {
+            name: 'def',
+            id: '7'
+        }]);
     });
 
     it('should shift all items from left to right', function() {
         scope.moveAllToRight();
 
-        expect(scope.rightList).toEqual(['abc', 'def', 'foo', 'bar', 'for', 'each']);
+        expect(scope.rightList).toEqual([{
+            name: 'abc',
+            id: '6'
+        }, {
+            name: 'def',
+            id: '7'
+        }, {
+            name: 'foo',
+            id: '1'
+        }, {
+            name: 'bar',
+            id: "2"
+        }, {
+            name: 'for',
+            id: '3'
+        }, {
+            name: 'each',
+            id: '4'
+        }]);
     });
 });
