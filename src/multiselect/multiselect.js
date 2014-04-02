@@ -51,7 +51,7 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             for (var index in $scope.rightList) {
                 $scope.leftList.push($scope.rightList[index]);
             }
-            $scope.rightList = [];
+            $scope.rightList.splice(0, $scope.rightList.length);
             clearSelectedItems();
         };
 
@@ -59,7 +59,7 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             for (var index in $scope.leftList) {
                 $scope.rightList.push($scope.leftList[index]);
             }
-            $scope.leftList = [];
+            $scope.leftList.splice(0, $scope.leftList.length);
             clearSelectedItems();
         };
     }
