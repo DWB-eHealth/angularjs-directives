@@ -16,7 +16,7 @@
 
 		<li class="form-group">
 			<label for="week">Week</label>
-			<select name="" id="week"  class="input-sm" ng-options="formatWeek(w) for w in getWeeks()">
+			<select name="" id="week"  class="input-sm" ng-model="week" ng-options="formatWeek(w) for w in getWeeks()">
 				<option value="">-</option>
 			</select>
 		</li>
