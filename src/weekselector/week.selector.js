@@ -4,6 +4,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
     function($scope) {
         $scope.weeks = [];
         $scope.years = [];
+        $scope.months = [];
         $scope.startYear = $scope.startYear || 1900;
         for (var i = $scope.startYear; i <= moment().year(); i++) {
             $scope.years.push(i);
@@ -32,25 +33,29 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             return "W" + w.weekNumber + " - " + w.startOfWeek + " - " + w.endOfWeek;
         };
 
-        $scope.getWeeks = function() {
-            if (!$scope.year || (!$scope.month && $scope.month !== 0)) return [];
+        $scope.populateWeeks = function() {
+            $scope.week = undefined;
+            $scope.weeks = [];
+            if (!$scope.year || (!$scope.month && $scope.month !== 0)) return;
             var m = moment().year($scope.year).month($scope.month).date(1);
-            var weeks = [];
 
-            while (m.startOf("isoWeek").month() === $scope.month || m.endOf("isoWeek").month() === $scope.month) {
-                weeks.push(getWeek(m));
+            while ((m.startOf("isoWeek").month() === $scope.month || m.endOf("isoWeek").month() === $scope.month) && m.endOf("isoWeek").isBefore(moment())) {
+                $scope.weeks.push(getWeek(m));
                 m.isoWeek(m.isoWeek() + 1);
             }
-
-            return weeks;
         };
 
-        $scope.getMonths = function() {
-            if (!$scope.year) return [];
-            return $scope.year === moment().year() ? generateMonths(moment().month()) : generateMonths();
+        $scope.populateMonths = function() {
+            $scope.month = undefined;
+            $scope.week = undefined;
+            $scope.months = [];
+            $scope.weeks = [];
+            if (!$scope.year)
+                return;
+            $scope.months = $scope.year === moment().year() ? generateMonths(moment().month()) : generateMonths();
         };
 
-        $scope.getDate = function(m) {
+    $scope.toDate = function(m) {
             return moment().month(m).toDate();
         };
     }

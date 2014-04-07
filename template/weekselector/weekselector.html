@@ -2,23 +2,23 @@
 	<ul class="form">
 		<li class="form-group">
 			<label for="year">Year</label>
-			<select name="" id="year"  class="input-sm" ng-model="year" ng-options="y for y in years">
+			<select name="year" id="year"  class="input-sm" ng-model="year" ng-options="y for y in years" ng-change="populateMonths()">
 				<option value="">-</option>
 			</select>
 		</li>
 
 		<li class="form-group">
 			<label for="month">Month</label>
-			<select name="" id="month"  class="input-sm" ng-model="month" ng-options="getDate(m) | date:'MMM' for m in getMonths()">
+			<select name="month" id="month"  class="input-sm" ng-model="month" ng-options="toDate(m) | date:'MMM' for m in months" ng-change="populateWeeks()">
 				<option value="">-</option>
 			</select>
 		</li>
 
 		<li class="form-group">
 			<label for="week">Week</label>
-			<select name="" id="week"  class="input-sm" ng-model="week" ng-options="formatWeek(w) for w in getWeeks()">
+			<select name="week" id="week" class="input-sm" ng-model="week" ng-options="formatWeek(w) for w in weeks">
 				<option value="">-</option>
-			</select>
+		</select>
 		</li>
 	</ul>
 </section>
