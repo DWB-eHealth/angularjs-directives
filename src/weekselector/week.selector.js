@@ -33,7 +33,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         };
 
         $scope.getWeeks = function() {
-            if (!$scope.year || $scope.month === undefined) return [];
+            if (!$scope.year || (!$scope.month && $scope.month !== 0)) return [];
             var m = moment().year($scope.year).month($scope.month).date(1);
             var weeks = [];
 
