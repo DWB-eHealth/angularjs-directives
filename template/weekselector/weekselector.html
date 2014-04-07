@@ -1,0 +1,24 @@
+<section class="module-select">
+	<ul class="form">
+		<li class="form-group">
+			<label for="year">Year</label>
+			<select name="" id="year"  class="input-sm" ng-model="year" ng-options="y for y in years">
+				<option value="">-</option>
+			</select>
+		</li>
+
+		<li class="form-group">
+			<label for="month">Month</label>
+			<select name="" id="month"  class="input-sm" ng-model="month" ng-options="getDate(m) | date:'MMM' for m in getMonths()">
+				<option value="">-</option>
+			</select>
+		</li>
+
+		<li class="form-group">
+			<label for="week">Week</label>
+			<select name="" id="week"  class="input-sm" ng-options="formatWeek(w) for w in getWeeks()">
+				<option value="">-</option>
+			</select>
+		</li>
+	</ul>
+</section>

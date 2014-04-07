@@ -4,7 +4,8 @@
     "private": true,
     "keywords": ["angular", "multiselect"],
     "dependencies": {
-        "angular": null
+        "angular": null,
+        "moment": null
     },
     "devDependencies": {
         "angular-mocks": null
