@@ -2,13 +2,16 @@ var weekselectorModule = angular.module('ui.weekselector', []);
 
 weekselectorModule.controller('WeekSelectorController', ['$scope',
     function($scope) {
-        $scope.weeks = [];
-        $scope.years = [];
-        $scope.months = [];
-        $scope.startYear = $scope.startYear || 1900;
-        for (var i = $scope.startYear; i <= moment().year(); i++) {
-            $scope.years.push(i);
-        }
+
+        var init = function() {
+            $scope.weeks = [];
+            $scope.years = [];
+            $scope.months = [];
+            $scope.startYear = $scope.startYear || 1900;
+            for (var i = $scope.startYear; i <= moment().year(); i++) {
+                $scope.years.push(i);
+            }
+        };
 
         var generateMonths = function(tillMonth) {
             var months = [];
@@ -55,9 +58,11 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             $scope.months = $scope.year === moment().year() ? generateMonths(moment().month()) : generateMonths();
         };
 
-    $scope.toDate = function(m) {
+        $scope.toDate = function(m) {
             return moment().month(m).toDate();
         };
+
+        init();
     }
 ]);
 
