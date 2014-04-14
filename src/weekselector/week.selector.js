@@ -3,7 +3,7 @@ var weekselectorModule = angular.module('ui.weekselector', []);
 weekselectorModule.controller('WeekSelectorController', ['$scope',
     function($scope) {
         var init = function() {
-            $scope.onChange = $scope.onChange || function() {};
+            $scope.onChange = $scope.onchange || function() {};
             $scope.weeks = [];
             $scope.years = [];
             $scope.months = [];
@@ -74,7 +74,7 @@ weekselectorModule.directive('weekselector', function() {
             'month': "=",
             'year': "=",
             'startYear': "@",
-            'onChange': "&?"
+            'onchange': "&?"
         },
         templateUrl: 'js/lib/angularjs-directives/template/weekselector/weekselector.html',
         replace: true,
