@@ -55,6 +55,14 @@ describe("week selector", function() {
             expect(scope.weeks.length).toEqual(1);
         });
 
+        it('should reload data when startDate changes', function() {
+            scope.startDate = "2011-01-02"
+
+            scope.$apply();
+
+            expect(scope.years).toEqual([2011, 2012, 2013, 2014]);
+        });
+
         it('should populate from start month when year selected is start date year', function() {
             scope.year = 2012;
 

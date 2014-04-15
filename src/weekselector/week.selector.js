@@ -58,6 +58,10 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             }
         };
 
+        $scope.$watch('startDate', function() {
+            init();
+        });
+
         $scope.populateMonths = function() {
             $scope.month = undefined;
             $scope.week = undefined;
@@ -93,7 +97,7 @@ weekselectorModule.directive('weekselector', function() {
             'week': "=",
             'month': "=",
             'year': "=",
-            'startDate': "@",
+            'startDate': "=",
             'onChange': "&?"
         },
         templateUrl: 'js/lib/angularjs-directives/template/weekselector/weekselector.html',
