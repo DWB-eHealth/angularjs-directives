@@ -3,6 +3,11 @@ var weekselectorModule = angular.module('ui.weekselector', []);
 weekselectorModule.controller('WeekSelectorController', ['$scope',
     function($scope) {
         var startDate;
+        var canOperateOnCurrentDate = function() {
+            var m = moment().date(1);
+            return m.endOf("isoWeek").isBefore(moment());
+        };
+
         var init = function() {
             $scope.onChange = $scope.onChange || function() {};
             $scope.weeks = [];
@@ -10,7 +15,9 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             $scope.months = [];
             $scope.startDate = $scope.startDate || "1900-01-01";
             startDate = moment(new Date($scope.startDate));
-            for (var i = startDate.year(); i <= moment().year(); i++) {
+            var today = moment();
+            var currentYear = today.month() == 0 && !canOperateOnCurrentDate() ? today.year() - 1 : today.year();
+            for (var i = startDate.year(); i <= currentYear; i++) {
                 $scope.years.push(i);
             }
         };
@@ -60,8 +67,11 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
                 return;
             if ($scope.year === moment().year()) {
                 var currentMonth = moment().month();
+                if (!canOperateOnCurrentDate())
+                    currentMonth -= 1;
                 $scope.months = generateMonths(0, currentMonth);
                 $scope.month = currentMonth;
+                $scope.populateWeeks();
             } else if ($scope.year === startDate.year())
                 $scope.months = generateMonths(startDate.month());
             else
