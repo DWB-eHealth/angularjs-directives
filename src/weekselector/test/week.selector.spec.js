@@ -29,7 +29,7 @@ describe("week selector", function() {
         });
 
         it('should initialize to current week', function() {
-            expect(scope.week.weekNumber).toEqual(14);
+            expect(scope.week.weekNumber).toEqual(15);
             expect(scope.year).toEqual(2014);
             expect(scope.month).toEqual(3);
         });
@@ -59,7 +59,7 @@ describe("week selector", function() {
             scope.populateMonths();
 
             expect(scope.month).toEqual(3);
-            expect(scope.weeks.length).toEqual(1);
+            expect(scope.weeks.length).toEqual(2);
         });
 
         it('should reload data when startDate changes', function() {
@@ -139,6 +139,10 @@ describe("week selector", function() {
                 weekNumber: 14,
                 startOfWeek: '2014-03-31',
                 endOfWeek: '2014-04-06'
+            }, {
+                weekNumber: 15,
+                startOfWeek: '2014-04-07',
+                endOfWeek: '2014-04-13'
             }]);
         });
     });
@@ -169,67 +173,6 @@ describe("week selector", function() {
         it('should initialize start date', function() {
             expect(scope.startDate).toEqual("1900-01-01");
             expect(scope.years.length).toEqual(2014 - 1900 + 1);
-        });
-    });
-
-    describe("with beginning of month as current date", function() {
-        var scope, _Date, today;
-
-        beforeEach(module('ui.weekselector'));
-
-        beforeEach(inject(function($controller, $rootScope) {
-            today = "2014-04-01T11:59:01.913Z";
-            _Date = Date;
-            Date = function(someDay) {
-                return someDay ? new _Date(someDay) : new _Date(today);
-            };
-            Date.UTC = _Date.UTC;
-
-            scope = $rootScope.$new();
-            $controller('WeekSelectorController', {
-                $scope: scope
-            });
-        }));
-
-        afterEach(function() {
-            Date = _Date;
-        });
-
-        it('should initialize months to previous month when the current year is selected', function() {
-            scope.year = 2014;
-
-            scope.populateMonths();
-
-            expect(scope.month).toEqual(2);
-        });
-    });
-
-    describe("with newyear as the current date", function() {
-        var scope, _Date, today;
-
-        beforeEach(module('ui.weekselector'));
-
-        beforeEach(inject(function($controller, $rootScope) {
-            today = "2014-01-01T11:59:01.913Z";
-            _Date = Date;
-            Date = function(someDay) {
-                return someDay ? new _Date(someDay) : new _Date(today);
-            };
-            Date.UTC = _Date.UTC;
-
-            scope = $rootScope.$new();
-            scope.startDate = "2012-02-12";
-            $controller('WeekSelectorController', {
-                $scope: scope
-            });
-        }));
-
-        afterEach(function() {
-            Date = _Date;
-        });
-
-        it('should initialize months to previous month when the current year is selected', function() {
-            expect(scope.years).toEqual([2012, 2013]);
         });
     });
 });

@@ -3,10 +3,6 @@ var weekselectorModule = angular.module('ui.weekselector', []);
 weekselectorModule.controller('WeekSelectorController', ['$scope',
     function($scope) {
         var startDate;
-        var canOperateOnCurrentDate = function() {
-            var m = moment().date(1);
-            return m.endOf("isoWeek").isBefore(moment());
-        };
 
         var init = function() {
             $scope.onChange = $scope.onChange || function() {};
@@ -16,7 +12,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             $scope.startDate = $scope.startDate || "1900-01-01";
             startDate = moment(new Date($scope.startDate));
             var today = moment();
-            var currentYear = today.month() == 0 && !canOperateOnCurrentDate() ? today.year() - 1 : today.year();
+            var currentYear = today.year();
             for (var i = startDate.year(); i <= currentYear; i++) {
                 $scope.years.push(i);
             }
@@ -60,7 +56,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             if (!$scope.year || (!$scope.month && $scope.month !== 0)) return;
             var m = moment().year($scope.year).month($scope.month).date(1);
 
-            while ((m.startOf("isoWeek").month() === $scope.month || m.endOf("isoWeek").month() === $scope.month) && m.endOf("isoWeek").isBefore(moment())) {
+            while ((m.startOf("isoWeek").month() === $scope.month || m.endOf("isoWeek").month() === $scope.month) && m.startOf("isoWeek").isBefore(moment())) {
                 $scope.weeks.push(getWeek(m));
                 m.isoWeek(m.isoWeek() + 1);
             }
@@ -78,11 +74,8 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             if (!$scope.year)
                 return;
             if ($scope.year === moment().year()) {
-                var currentMonth = moment().month();
-                if (!canOperateOnCurrentDate())
-                    currentMonth -= 1;
-                $scope.months = generateMonths(0, currentMonth);
-                $scope.month = currentMonth;
+                $scope.month = moment().month();
+                $scope.months = generateMonths(0, $scope.month);
                 $scope.populateWeeks();
             } else if ($scope.year === startDate.year())
                 $scope.months = generateMonths(startDate.month());
