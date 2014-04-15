@@ -34,6 +34,15 @@ describe("week selector", function() {
             expect(scope.month).toEqual(3);
         });
 
+        it('should default to current week if current year is chosen', function() {
+            scope.year = 2014;
+
+            scope.populateMonths();
+
+            expect(scope.month).toEqual(3);
+            expect(scope.week.weekNumber).toEqual(15);
+        });
+
         it('should populate all months when year selected is not current year', function() {
             scope.year = 2013;
 

@@ -60,6 +60,8 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
                 $scope.weeks.push(getWeek(m));
                 m.isoWeek(m.isoWeek() + 1);
             }
+            if (moment().year() === $scope.year && moment().month() === $scope.month)
+                $scope.week = $scope.weeks[$scope.weeks.length - 1];
         };
 
         $scope.$watch('startDate', function() {
