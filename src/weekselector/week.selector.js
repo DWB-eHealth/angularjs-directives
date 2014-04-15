@@ -2,21 +2,24 @@ var weekselectorModule = angular.module('ui.weekselector', []);
 
 weekselectorModule.controller('WeekSelectorController', ['$scope',
     function($scope) {
+        var startDate;
         var init = function() {
             $scope.onChange = $scope.onChange || function() {};
             $scope.weeks = [];
             $scope.years = [];
             $scope.months = [];
-            $scope.startYear = $scope.startYear || 1900;
-            for (var i = $scope.startYear; i <= moment().year(); i++) {
+            $scope.startDate = $scope.startDate || "1900-01-01";
+            startDate = moment(new Date($scope.startDate));
+            for (var i = startDate.year(); i <= moment().year(); i++) {
                 $scope.years.push(i);
             }
         };
 
-        var generateMonths = function(tillMonth) {
+        var generateMonths = function(startMonth, tillMonth) {
             var months = [];
+            startMonth = startMonth || 0;
             tillMonth = tillMonth || 11;
-            for (var i = 0; i <= tillMonth; i++)
+            for (var i = startMonth; i <= tillMonth; i++)
                 months.push(i);
             return months;
         };
@@ -33,7 +36,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         };
 
         $scope.formatWeek = function(w) {
-            return "W" + w.weekNumber + " - " + w.startOfWeek + " - " + w.endOfWeek;
+            return "W " + w.weekNumber + " - " + w.startOfWeek + " - " + w.endOfWeek;
         };
 
         $scope.populateWeeks = function() {
@@ -55,7 +58,14 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             $scope.weeks = [];
             if (!$scope.year)
                 return;
-            $scope.months = $scope.year === moment().year() ? generateMonths(moment().month()) : generateMonths();
+            if ($scope.year === moment().year()) {
+                var currentMonth = moment().month();
+                $scope.months = generateMonths(0, currentMonth);
+                $scope.month = currentMonth;
+            } else if ($scope.year === startDate.year())
+                $scope.months = generateMonths(startDate.month());
+            else
+                $scope.months = generateMonths();
         };
 
         $scope.toDate = function(m) {
@@ -70,11 +80,11 @@ weekselectorModule.directive('weekselector', function() {
     return {
         restrict: 'EA',
         scope: {
-            'week': "=",
-            'month': "=",
-            'year': "=",
-            'startYear': "@",
-            'onChange': "&?"
+            'week': " = ",
+            'month': " = ",
+            'year': " = ",
+            'startDate': "@",
+            'onChange': " & ? "
         },
         templateUrl: 'js/lib/angularjs-directives/template/weekselector/weekselector.html',
         replace: true,

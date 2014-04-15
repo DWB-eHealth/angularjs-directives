@@ -13,7 +13,7 @@ describe("week selector", function() {
             Date.UTC = _Date.UTC;
 
             scope = $rootScope.$new();
-            scope.startYear = 2012;
+            scope.startDate = "2012-04-01";
             $controller('WeekSelectorController', {
                 $scope: scope
             });
@@ -44,6 +44,22 @@ describe("week selector", function() {
             scope.populateMonths();
 
             expect(scope.months).toEqual([0, 1, 2, 3]);
+        });
+
+        it('should set month to current month if the current year is selected', function() {
+            scope.year = 2014;
+
+            scope.populateMonths();
+
+            expect(scope.month).toEqual(3);
+        });
+
+        it('should populate from start month when year selected is start date year', function() {
+            scope.year = 2012;
+
+            scope.populateMonths();
+
+            expect(scope.months).toEqual([3, 4, 5, 6, 7, 8, 9, 10, 11]);
         });
 
         it('should initialize months and weeks if year is reset', function() {
@@ -134,8 +150,8 @@ describe("week selector", function() {
             Date = _Date;
         });
 
-        it('should initialize years', function() {
-            expect(scope.startYear).toEqual(1900);
+        it('should initialize start date', function() {
+            expect(scope.startDate).toEqual("1900-01-01");
             expect(scope.years.length).toEqual(2014 - 1900 + 1);
         });
     });
