@@ -80,11 +80,11 @@ weekselectorModule.directive('weekselector', function() {
     return {
         restrict: 'EA',
         scope: {
-            'week': " = ",
-            'month': " = ",
-            'year': " = ",
+            'week': "=",
+            'month': "=",
+            'year': "=",
             'startDate': "@",
-            'onChange': " & ? "
+            'onChange': "&?"
         },
         templateUrl: 'js/lib/angularjs-directives/template/weekselector/weekselector.html',
         replace: true,
