@@ -20,6 +20,14 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             for (var i = startDate.year(); i <= currentYear; i++) {
                 $scope.years.push(i);
             }
+            defaultToCurrentWeek(currentYear);
+        };
+
+        var defaultToCurrentWeek = function(currentYear) {
+            $scope.year = currentYear;
+            $scope.populateMonths();
+            $scope.populateWeeks();
+            $scope.week = $scope.weeks[$scope.weeks.length - 1];
         };
 
         var generateMonths = function(startMonth, tillMonth) {
