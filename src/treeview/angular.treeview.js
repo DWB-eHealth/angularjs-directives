@@ -34,7 +34,7 @@
                     'nodeLabel': '@',
                     'nodeId': '@',
                     'nodeChildren': '@',
-                    'onNodeSelect': '&?',
+                    'onNodeSelect': '=',
                     'state': '=?',
                 },
                 link: function(scope, element, attrs) {
