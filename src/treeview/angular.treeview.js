@@ -48,13 +48,12 @@
                         '<ul>' +
                         '<li ng-repeat="node in treeModel">' +
                         '<span ng-class="{collapsed: node[nodeChildren].length && node.collapsed, expanded: node[nodeChildren].length && !node.collapsed, normal: !node[nodeChildren].length}"  ng-click="selectNodeHead(node)"></span>' +
-                        '<span ng-class="node.selected" data-ng-click="selectNodeLabel(node)">{{node[nodeLabel]}}</span>' +
+                        '<span ng-class="{selected: node.selected}" data-ng-click="selectNodeLabel(node)">{{node[nodeLabel]}}</span>' +
                         '<treeview ng-hide="node.collapsed" tree-model="node[nodeChildren]" node-id="{{nodeId}}"' +
                         ' node-label="{{nodeLabel}}" node-children="{{nodeChildren}}" on-node-select="onNodeSelect" state="state" />' +
                         '</li>' +
                         '</ul>';
 
-                    // if (attrs.angularTreeview) {
                     scope.selectNodeHead = function(selectedNode) {
                         selectedNode.collapsed = !selectedNode.collapsed;
                     };
@@ -65,13 +64,12 @@
                         }
 
                         //set highlight to selected node
-                        selectedNode.selected = 'selected';
+                        selectedNode.selected = true;
 
                         //set currentNode
                         scope.state.currentNode = selectedNode;
                         scope.onNodeSelect(selectedNode);
                     };
-                    // }
 
                     //Rendering template.
                     element.html('').append($compile(template)(scope));
