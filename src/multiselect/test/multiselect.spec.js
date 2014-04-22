@@ -2,14 +2,24 @@ describe('multiselect', function() {
     var scope;
     var leftList;
     var rightList;
+    var ngModelCtrl;
 
     beforeEach(module('ui.multiselect'));
 
     beforeEach(inject(function($controller, $rootScope) {
         scope = $rootScope.$new();
-        $controller('MultiSelectController', {
+        var multiselectController = $controller('MultiSelectController', {
             $scope: scope
         });
+        var NgModelCtrl = function() {
+            this.$render = function() {};
+            this.$setViewValue = function(value) {
+                this.$viewValue = value;
+            };
+        };
+        ngModelCtrl = new NgModelCtrl();
+        multiselectController.init(ngModelCtrl);
+
         scope.leftList = [{
             name: 'foo',
             id: "1"
@@ -60,6 +70,7 @@ describe('multiselect', function() {
             name: 'for',
             id: '3'
         }]);
+        expect(ngModelCtrl.$viewValue).toEqual(scope.rightList);
     });
 
     it('should shift selectedItems from right to left', function() {
@@ -86,6 +97,7 @@ describe('multiselect', function() {
             name: 'abc',
             id: '6'
         }]);
+        expect(ngModelCtrl.$viewValue).toEqual(scope.rightList);
     });
 
     it('should shift all items from right to left', function() {
@@ -109,6 +121,7 @@ describe('multiselect', function() {
             name: 'def',
             id: '7'
         }]);
+        expect(ngModelCtrl.$viewValue).toEqual(scope.rightList);
     });
 
     it('should shift all items from left to right', function() {
@@ -133,5 +146,6 @@ describe('multiselect', function() {
             name: 'each',
             id: '4'
         }]);
+        expect(ngModelCtrl.$viewValue).toEqual(scope.rightList);
     });
 });

@@ -4,7 +4,10 @@ multiselectModule.controller('MultiSelectController', ['$scope',
     function($scope) {
         $scope.leftSelectedItems = {};
         $scope.rightSelectedItems = {};
-
+        var ngModelCtrl = {
+            $setViewValue: angular.noop,
+            $render: angular.noop
+        };
         var shiftItems = function(selectedItems, fromList, toList) {
             for (var index in selectedItems) {
                 var selectedItem = selectedItems[index];
@@ -22,7 +25,6 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             return -1;
         };
 
-
         var getSelectedItems = function(selectedItems) {
             var selections = [];
             for (var selectedItem in selectedItems) {
@@ -35,16 +37,27 @@ multiselectModule.controller('MultiSelectController', ['$scope',
         var clearSelectedItems = function() {
             $scope.leftSelectedItems = {};
             $scope.rightSelectedItems = {};
-        }
+        };
+
+        var render = function() {
+            $scope.rightList = ngModelCtrl.$viewValue;
+        };
+
+        var updateView = function() {
+            ngModelCtrl.$setViewValue($scope.rightList);
+            ngModelCtrl.$render();
+        };
 
         $scope.moveToRight = function() {
             shiftItems(getSelectedItems($scope.leftSelectedItems), $scope.leftList, $scope.rightList);
             clearSelectedItems();
+            updateView();
         };
 
         $scope.moveToLeft = function() {
             shiftItems(getSelectedItems($scope.rightSelectedItems), $scope.rightList, $scope.leftList);
             clearSelectedItems();
+            updateView();
         };
 
         $scope.moveAllToLeft = function() {
@@ -53,6 +66,7 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             }
             $scope.rightList.splice(0, $scope.rightList.length);
             clearSelectedItems();
+            updateView();
         };
 
         $scope.moveAllToRight = function() {
@@ -61,6 +75,12 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             }
             $scope.leftList.splice(0, $scope.leftList.length);
             clearSelectedItems();
+            updateView();
+        };
+
+        this.init = function(_ngModelCtrl) {
+            ngModelCtrl = _ngModelCtrl;
+            ngModelCtrl.$render = render;
         };
     }
 
@@ -69,13 +89,21 @@ multiselectModule.controller('MultiSelectController', ['$scope',
 multiselectModule.directive('multiselect', function() {
     return {
         restrict: 'EA',
+        require: ['multiselect', 'ngModel'],
         scope: {
             leftList: "=",
-            rightList: "=",
             name: "@"
         },
         templateUrl: 'js/lib/angularjs-directives/template/multiselect/multiselect.html',
         replace: true,
-        controller: 'MultiSelectController'
+        controller: 'MultiSelectController',
+        link: function(scope, element, attrs, ctrls) {
+            var multiSelectCtrl = ctrls[0],
+                ngModelCtrl = ctrls[1];
+
+            if (ngModelCtrl) {
+                multiSelectCtrl.init(ngModelCtrl);
+            }
+        }
     };
 });
