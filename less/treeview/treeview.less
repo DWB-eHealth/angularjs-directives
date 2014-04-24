@@ -1,3 +1,4 @@
+
 treeview     {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
@@ -11,6 +12,9 @@ treeview     {
 }
 
 treeview {
+    background: #e7e7e7;
+
+
     ul {
         margin: 0;
         padding: 0;
@@ -23,19 +27,50 @@ treeview {
         padding: 0 0 0 20px;
         line-height: 20px;
         .expanded {
-            .glyphicon;
-            .glyphicon-chevron-down;
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-style: normal;
+            font-weight: normal;
+            border-radius: 2px;
+            border: 1px solid #C0C0C0;
+            height: 12px;
+            width: 12px;
+            margin-right: 5px;
         }
+        .expanded:before{
+            position: absolute;
+            content: "-";
+            top: -6px;
+            left: 2px;
+        }
+
         .collapsed {
-            .glyphicon;
-            .glyphicon-chevron-right;
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-style: normal;
+            font-weight: normal;
+            border-radius: 2px;
+            border: 1px solid #C0C0C0;
+            height: 12px;
+            width: 12px;
+            margin-right: 5px;
+            
+        }
+        .collapsed:before{
+            position: absolute;
+            content: "+";
+            top: -6px;
+            left: 0px;
         }
         .normal {
         }
         .selected {
-            background-color: #aaddff;
-            font-weight: bold;
-            padding: 1px 5px;
+            background-color: #e8c735;
+            font-weight: normal;
+            color:#000;
+            padding: 2px 5px;
         }
     }
 }
