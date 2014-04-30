@@ -1,6 +1,6 @@
-var equalsModule = angular.module('ui.notIn', []);
+var notInModule = angular.module('ui.notIn', []);
 
-equalsModule.directive('notIn', function() {
+notInModule.directive('notIn', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -9,7 +9,7 @@ equalsModule.directive('notIn', function() {
             var otherValues;
 
             attrs.$observe('notIn', function(values) {
-                otherValues = values;
+                otherValues = angular.fromJson(values);
                 validate();
             });
 
@@ -20,8 +20,9 @@ equalsModule.directive('notIn', function() {
             });
 
             var validate = function() {
-                ctrl.$setValidity('isWithin', otherValues.some(function(value) {
-                    return value.toLowerCase() === thisValue.toLowerCase();
+                ctrl.$setValidity('isWithin', !otherValues.some(function(value) {
+                    if (thisValue !== undefined)
+                        return value.toLowerCase() === thisValue.toLowerCase();
                 }));
             };
         },

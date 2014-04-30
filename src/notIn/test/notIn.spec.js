@@ -8,7 +8,7 @@ xdescribe('notIn', function() {
 
         var element = angular.element(
             '<form name="form">' +
-            '<input type="text" name="projectName" id="projectName" ng-model="project.name" required not-in="{{existingProjects}}" />' +
+            '<input type="text" name="projectName" id="projectName" ng-model="project.name" not-in="{{existingProjects}}" required>' +
             '</form>'
         );
 
