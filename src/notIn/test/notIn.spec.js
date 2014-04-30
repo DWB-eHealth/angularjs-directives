@@ -1,4 +1,4 @@
-xdescribe('notIn', function() {
+describe('notIn', function() {
     var $scope, compile, form;
 
     beforeEach(module('ui.notIn'));
