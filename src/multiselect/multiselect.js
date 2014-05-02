@@ -78,6 +78,13 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             updateView();
         };
 
+        $scope.selectRightElement = function(element) {
+            $scope.rightSelectedItems[element[$scope.name]] = !$scope.rightSelectedItems[element[$scope.name]];
+            $scope.click({
+                "element": element
+            });
+        };
+
         this.init = function(_ngModelCtrl) {
             ngModelCtrl = _ngModelCtrl;
             ngModelCtrl.$render = render;
@@ -92,6 +99,7 @@ multiselectModule.directive('multiselect', function() {
         require: ['multiselect', 'ngModel'],
         scope: {
             leftList: "=",
+            click: "&",
             name: "@"
         },
         templateUrl: 'js/lib/angularjs-directives/template/multiselect/multiselect.html',
