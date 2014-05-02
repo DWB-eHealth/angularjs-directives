@@ -109,6 +109,10 @@ multiselectModule.directive('multiselect', function() {
             var multiSelectCtrl = ctrls[0],
                 ngModelCtrl = ctrls[1];
 
+            scope.$parent.$watch(attrs.ngDisabled, function(newVal) {
+                scope.isDisabled = newVal;
+            });
+
             if (ngModelCtrl) {
                 multiSelectCtrl.init(ngModelCtrl);
             }
