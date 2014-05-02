@@ -14,7 +14,7 @@ notInModule.directive('notIn', function() {
             ctrl.$parsers.unshift(function(viewValue) {
                 isValid = doesNotContain(viewValue, scope.notIn);
                 ctrl.$setValidity('isWithin', isValid);
-                return isValid ? viewValue : undefined;
+                return viewValue;
             });
 
             var doesNotContain = function(needle, haystack) {
