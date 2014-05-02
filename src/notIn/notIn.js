@@ -4,14 +4,12 @@ notInModule.directive('notIn', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
+        scope: {
+            notIn: '=',
+        },
         link: function(scope, elm, attrs, ctrl) {
             var thisValue;
             var otherValues;
-
-            attrs.$observe('notIn', function(values) {
-                otherValues = angular.fromJson(values);
-                validate();
-            });
 
             ctrl.$parsers.unshift(function(viewValue) {
                 thisValue = viewValue.toLowerCase();
@@ -20,9 +18,8 @@ notInModule.directive('notIn', function() {
             });
 
             var validate = function() {
-                ctrl.$setValidity('isWithin', !otherValues.some(function(value) {
-                    if (thisValue !== undefined)
-                        return value.toLowerCase() === thisValue.toLowerCase();
+                ctrl.$setValidity('isWithin', !scope.notIn.some(function(value) {
+                    return value.toLowerCase() === thisValue.toLowerCase();
                 }));
             };
         },

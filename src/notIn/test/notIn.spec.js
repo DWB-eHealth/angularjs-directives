@@ -3,17 +3,18 @@ describe('notIn', function() {
 
     beforeEach(module('ui.notIn'));
     beforeEach(inject(function($rootScope, $compile) {
-        $scope = $rootScope.$new();
         compile = $compile;
+
+        $scope = $rootScope.$new();
+        $scope.existingProjects = ["prj A", "prj B", "prj C"];
 
         var element = angular.element(
             '<form name="form">' +
-            '<input type="text" name="projectName" id="projectName" ng-model="project.name" not-in="{{existingProjects}}" required>' +
+            '<input type="text" name="projectName" id="projectName" ng-model="project.name" not-in="existingProjects">' +
             '</form>'
         );
 
         compile(element)($scope);
-        $scope.existingProjects = ["prj A", "prj B", "prj C"];
         $scope.$digest();
         form = $scope.form;
     }));
@@ -32,6 +33,13 @@ describe('notIn', function() {
 
         expect(form.projectName.$invalid).toBe(false);
         expect(form.projectName.$error.isWithin).toBe(false);
+    });
+
+    it('should set invalid to false if no value is specified', function() {
+        $scope.$digest();
+
+        expect(form.projectName.$invalid).toBe(false);
+        expect(form.projectName.$error.isWithin).toBe(undefined);
     });
 
 });
