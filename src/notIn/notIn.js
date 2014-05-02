@@ -12,15 +12,15 @@ notInModule.directive('notIn', function() {
             var otherValues;
 
             ctrl.$parsers.unshift(function(viewValue) {
-                thisValue = viewValue.toLowerCase();
-                validate();
-                return thisValue;
+                isValid = doesNotContain(viewValue, scope.notIn);
+                ctrl.$setValidity('isWithin', isValid);
+                return isValid ? viewValue : undefined;
             });
 
-            var validate = function() {
-                ctrl.$setValidity('isWithin', !scope.notIn.some(function(value) {
-                    return value.toLowerCase() === thisValue.toLowerCase();
-                }));
+            var doesNotContain = function(needle, haystack) {
+                return !haystack.some(function(value) {
+                    return value.toLowerCase() === needle.toLowerCase();
+                });
             };
         },
     };
