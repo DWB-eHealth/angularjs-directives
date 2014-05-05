@@ -99,6 +99,7 @@ multiselectModule.directive('multiselect', function() {
         require: ['multiselect', 'ngModel'],
         scope: {
             leftList: "=",
+            disabled: "=",
             click: "&",
             name: "@"
         },
@@ -108,10 +109,6 @@ multiselectModule.directive('multiselect', function() {
         link: function(scope, element, attrs, ctrls) {
             var multiSelectCtrl = ctrls[0],
                 ngModelCtrl = ctrls[1];
-
-            scope.$parent.$watch(attrs.ngDisabled, function(newVal) {
-                scope.isDisabled = newVal;
-            });
 
             if (ngModelCtrl) {
                 multiSelectCtrl.init(ngModelCtrl);
