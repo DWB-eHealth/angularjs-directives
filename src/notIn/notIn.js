@@ -1,26 +1,38 @@
-var notInModule = angular.module('ui.notIn', []);
+var equalsModule = angular.module('ui.notIn', []);
 
-notInModule.directive('notIn', function() {
+equalsModule.directive('notIn', function() {
     return {
         restrict: 'A',
         require: 'ngModel',
-        scope: {
-            notIn: '=',
-        },
         link: function(scope, elm, attrs, ctrl) {
             var thisValue;
             var otherValues;
 
-            ctrl.$parsers.unshift(function(viewValue) {
-                isValid = doesNotContain(viewValue, scope.notIn);
-                ctrl.$setValidity('isWithin', isValid);
-                return viewValue;
+            attrs.$observe('notIn', function(values) {
+                otherValues = scope.$eval(values);
+                validate();
             });
 
-            var doesNotContain = function(needle, haystack) {
-                return !haystack.some(function(value) {
-                    return value.toLowerCase() === needle.toLowerCase();
+            ctrl.$parsers.unshift(function(viewValue) {
+                thisValue = viewValue.toLowerCase();
+                validate();
+                return thisValue;
+            });
+
+            var any = function(arr, predicate) {
+                for (var e in arr) {
+                    if (predicate(arr[e])) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+
+            var validate = function() {
+                var isWithin = any(otherValues, function(value) {
+                    return value && thisValue && (value.toLowerCase() === thisValue.toLowerCase());
                 });
+                ctrl.$setValidity('isWithin', !isWithin);
             };
         },
     };
