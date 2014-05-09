@@ -9,12 +9,15 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             $render: angular.noop
         };
         var shiftItems = function(selectedItems, fromList, toList) {
+            var shiftedItems = [];
             for (var index in selectedItems) {
                 var selectedItem = selectedItems[index];
                 var elementIndex = getFromElementIndex(fromList, selectedItem);
+                shiftedItems.push(fromList[elementIndex]);
                 toList.push(fromList[elementIndex]);
                 fromList.splice(elementIndex, 1);
             }
+            return shiftedItems;
         };
 
         var getFromElementIndex = function(fromList, itemId) {
@@ -55,9 +58,12 @@ multiselectModule.controller('MultiSelectController', ['$scope',
         };
 
         $scope.moveToLeft = function() {
-            shiftItems(getSelectedItems($scope.rightSelectedItems), $scope.rightList, $scope.leftList);
+            var shiftedItems = shiftItems(getSelectedItems($scope.rightSelectedItems), $scope.rightList, $scope.leftList);
             clearSelectedItems();
             updateView();
+            $scope.onMoveLeft({
+                "items": shiftedItems
+            });
         };
 
         $scope.moveAllToLeft = function() {
@@ -67,6 +73,9 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             $scope.rightList.splice(0, $scope.rightList.length);
             clearSelectedItems();
             updateView();
+            $scope.onMoveLeft({
+                "items": $scope.leftList
+            });
         };
 
         $scope.moveAllToRight = function() {
@@ -78,10 +87,10 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             updateView();
         };
 
-        $scope.selectRightElement = function(element) {
+        $scope.selectRightItem = function(element) {
             $scope.rightSelectedItems[element[$scope.name]] = !$scope.rightSelectedItems[element[$scope.name]];
-            $scope.click({
-                "element": element
+            $scope.onRightItemSelect({
+                "item": element
             });
         };
 
@@ -100,7 +109,8 @@ multiselectModule.directive('multiselect', function() {
         scope: {
             leftList: "=",
             disabled: "=",
-            click: "&",
+            onRightItemSelect: "&",
+            onMoveLeft: "&",
             name: "@"
         },
         templateUrl: 'js/lib/angularjs-directives/template/multiselect/multiselect.html',

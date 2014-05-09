@@ -41,6 +41,7 @@ describe('multiselect', function() {
             id: "7"
         }];
         scope.name = "name";
+        scope.onMoveLeft = function() {};
     }));
 
     afterEach(function() {
@@ -78,7 +79,7 @@ describe('multiselect', function() {
             'abc': true,
             'def': false
         };
-
+        spyOn(scope, "onMoveLeft");
         scope.moveToLeft();
 
         expect(scope.leftList).toEqual([{
@@ -98,10 +99,18 @@ describe('multiselect', function() {
             id: '6'
         }]);
         expect(ngModelCtrl.$viewValue).toEqual(scope.rightList);
+        expect(scope.onMoveLeft).toHaveBeenCalledWith({
+            items: [{
+                name: 'abc',
+                id: '6'
+            }]
+        });
     });
 
     it('should shift all items from right to left', function() {
+        spyOn(scope, "onMoveLeft");
         scope.moveAllToLeft();
+
         expect(scope.leftList).toEqual([{
             name: 'foo',
             id: '1'
@@ -122,6 +131,27 @@ describe('multiselect', function() {
             id: '7'
         }]);
         expect(ngModelCtrl.$viewValue).toEqual(scope.rightList);
+        expect(scope.onMoveLeft).toHaveBeenCalledWith({
+            items: [{
+                name: 'foo',
+                id: '1'
+            }, {
+                name: 'bar',
+                id: '2'
+            }, {
+                name: 'for',
+                id: '3'
+            }, {
+                name: 'each',
+                id: '4'
+            }, {
+                name: 'abc',
+                id: '6'
+            }, {
+                name: 'def',
+                id: '7'
+            }]
+        });
     });
 
     it('should shift all items from left to right', function() {

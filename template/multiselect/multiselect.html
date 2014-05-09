@@ -13,7 +13,7 @@
     </div>
     <section class="item-box">
       <ul class="items">
-        <li ng-repeat="element in rightList | orderBy:'name'" ng-click="selectRightElement(element)" ng-class="{sel: rightSelectedItems[element[name]]}">{{element[name]}}</li>
+        <li ng-repeat="element in rightList | orderBy:'name'" ng-click="selectRightItem(element)" ng-class="{sel: rightSelectedItems[element[name]]}">{{element[name]}}</li>
       </ul>
     </section>
   </div>
