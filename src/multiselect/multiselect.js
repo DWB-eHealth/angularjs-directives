@@ -38,8 +38,8 @@ multiselectModule.controller('MultiSelectController', ['$scope',
         };
 
         var clearSelectedItems = function() {
-            $scope.leftSelectedItems = {};
             $scope.rightSelectedItems = {};
+            $scope.leftSelectedItems = {};
         };
 
         var render = function() {
@@ -51,9 +51,26 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             ngModelCtrl.$render();
         };
 
+        var sortElementsByName = function(elements) {
+            elements.sort(function(a, b) {
+                if (a.name > b.name)
+                    return 1;
+                if (a.name < b.name)
+                    return -1;
+                return 0;
+            });
+            return elements;
+        };
+
         $scope.moveToRight = function() {
             shiftItems(getSelectedItems($scope.leftSelectedItems), $scope.leftList, $scope.rightList);
             clearSelectedItems();
+            if ($scope.selectFirstItem === true) {
+                $scope.rightList = sortElementsByName($scope.rightList);
+                $scope.onRightItemSelect({
+                    "item": $scope.rightList[0]
+                });
+            }
             updateView();
         };
 
@@ -64,6 +81,12 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             $scope.onMoveLeft({
                 "items": shiftedItems
             });
+            if ($scope.selectFirstItem === true && $scope.rightList.length !== 0) {
+                $scope.rightList = sortElementsByName($scope.rightList);
+                $scope.onRightItemSelect({
+                    "item": $scope.rightList[0]
+                });
+            }
         };
 
         $scope.moveAllToLeft = function() {
@@ -85,6 +108,12 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             $scope.leftList.splice(0, $scope.leftList.length);
             clearSelectedItems();
             updateView();
+            if ($scope.selectFirstItem === true) {
+                $scope.rightList = sortElementsByName($scope.rightList);
+                $scope.onRightItemSelect({
+                    "item": $scope.rightList[0]
+                });
+            }
         };
 
         $scope.selectRightItem = function(element) {
@@ -111,7 +140,8 @@ multiselectModule.directive('multiselect', function() {
             disabled: "=",
             onRightItemSelect: "&",
             onMoveLeft: "&",
-            name: "@"
+            name: "@",
+            selectFirstItem: "="
         },
         templateUrl: 'js/lib/angularjs-directives/template/multiselect/multiselect.html',
         replace: true,
