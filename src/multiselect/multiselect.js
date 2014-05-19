@@ -117,6 +117,7 @@ multiselectModule.controller('MultiSelectController', ['$scope',
         };
 
         $scope.selectRightItem = function(element) {
+            $scope.currentSelectedItem = element;
             $scope.rightSelectedItems[element[$scope.name]] = !$scope.rightSelectedItems[element[$scope.name]];
             $scope.onRightItemSelect({
                 "item": element
