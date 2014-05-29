@@ -3,7 +3,6 @@ var weekselectorModule = angular.module('ui.weekselector', []);
 weekselectorModule.controller('WeekSelectorController', ['$scope',
     function($scope) {
         var startDate;
-
         var init = function() {
             $scope.onChange = $scope.onChange || function() {};
             $scope.weeks = [];
@@ -68,6 +67,10 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             init();
         });
 
+        $scope.$watch('language', function() {
+            moment.lang($scope.language);
+        });
+
         $scope.populateMonths = function() {
             $scope.month = undefined;
             $scope.week = undefined;
@@ -86,7 +89,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         };
 
         $scope.toDate = function(m) {
-            return moment().month(m).toDate();
+            return moment.monthsShort(m);
         };
 
         init();
@@ -101,7 +104,9 @@ weekselectorModule.directive('weekselector', function() {
             'month': "=",
             'year': "=",
             'startDate': "=",
-            'onChange': "&?"
+            'onChange': "&?",
+            'labels': "=",
+            'language': "="
         },
         templateUrl: 'js/lib/angularjs-directives/template/weekselector/weekselector.html',
         replace: true,
