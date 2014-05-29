@@ -15,6 +15,7 @@ describe("week selector", function() {
             scope = $rootScope.$new();
 
             scope.startDate = "2012-04-01";
+            scope.language = "fr";
             $controller('WeekSelectorController', {
                 $scope: scope
             });
@@ -77,6 +78,19 @@ describe("week selector", function() {
             scope.$apply();
 
             expect(scope.years).toEqual([2011, 2012, 2013, 2014]);
+        });
+
+        it('should return month in appropriate language', function() {
+            scope.language = 'fr';
+            scope.$apply();
+
+            expect(scope.toDate(1)).toEqual("févr.");
+
+            scope.language = 'ar';
+            scope.$apply();
+
+            expect(scope.toDate(1)).toEqual("فبراير/ شباط");
+
         });
 
         it('should populate from start month when year selected is start date year', function() {
