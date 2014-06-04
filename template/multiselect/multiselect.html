@@ -2,7 +2,10 @@
   <div class="add-item-ctrl">
     <section class="item-box">
       <ul class="items">
-        <li ng-repeat="element in leftList | orderBy:'name'" ng-click='leftSelectedItems[element[name]] = !!!leftSelectedItems[element[name]]' ng-class="{sel: leftSelectedItems[element[name]]}">{{element[name]}} </li>
+        <li ng-repeat="element in leftList | orderBy:'name'" ng-click='leftSelectedItems[element[name]] = !!!leftSelectedItems[element[name]]' ng-class="{sel: leftSelectedItems[element[name]]}">
+          <span ng-if="!resourceBundle[element['id']]">{{element[name]}}</span>
+          <span ng-if="resourceBundle[element['id']]">{{resourceBundle[element["id"]]}}</span>
+        </li>
       </ul>
     </section>
     <div class="actions">
@@ -13,7 +16,10 @@
     </div>
     <section class="item-box">
       <ul class="items">
-        <li ng-repeat="element in rightList | orderBy:'name'" ng-click="selectRightItem(element)" ng-class="{sel: rightSelectedItems[element[name]], cur: currentSelectedItem === element}">{{element[name]}}</li>
+        <li ng-repeat="element in rightList | orderBy:'name'" ng-click="selectRightItem(element)" ng-class="{sel: rightSelectedItems[element[name]], cur: currentSelectedItem === element}">
+          <span ng-if="!resourceBundle[element['id']]">{{element[name]}}</span>
+          <span ng-if="resourceBundle[element['id']]">{{resourceBundle[element["id"]]}}</span>
+        </li>
       </ul>
     </section>
   </div>
