@@ -19,6 +19,7 @@ describe("week selector", function() {
             $controller('WeekSelectorController', {
                 $scope: scope
             });
+            scope.$apply();
         }));
 
         afterEach(function() {
