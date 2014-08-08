@@ -44,6 +44,7 @@ multiselectModule.controller('MultiSelectController', ['$scope',
 
         var render = function() {
             $scope.rightList = ngModelCtrl.$viewValue;
+            selectFirstItem();
         };
 
         var updateView = function() {
@@ -81,7 +82,11 @@ multiselectModule.controller('MultiSelectController', ['$scope',
             $scope.onMoveLeft({
                 "items": shiftedItems
             });
-            if ($scope.selectFirstItem === true && $scope.rightList.length !== 0) {
+            selectFirstItem();
+        };
+
+        var selectFirstItem = function() {
+            if ($scope.selectFirstItem && $scope.rightList.length !== 0) {
                 $scope.rightList = sortElementsByName($scope.rightList);
                 $scope.onRightItemSelect({
                     "item": $scope.rightList[0]
