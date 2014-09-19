@@ -36,6 +36,8 @@
                     'nodeChildren': '@',
                     'onNodeSelect': '=',
                     'state': '=?',
+                    'selectedNodes': '=',
+                    'allowMultiSelection': '='
                 },
                 link: function(scope, element, attrs) {
                     scope.nodeId = scope.nodeId || 'id';
@@ -43,13 +45,14 @@
                     scope.nodeChildren = scope.nodeChildren || 'children';
                     scope.onNodeSelect = scope.onNodeSelect || function() {};
                     scope.state = scope.state || {};
+                    scope.allowMultiSelection = scope.allowMultiSelection || false;
 
                     var template =
                         '<ul>' +
                         '<li ng-repeat="node in treeModel">' +
                         '<span ng-class="{collapsed: node[nodeChildren].length && node.collapsed, expanded: node[nodeChildren].length && !node.collapsed, normal: !node[nodeChildren].length}"  ng-click="selectNodeHead(node)"></span>' +
                         '<span ng-class="{selected: node.selected}" data-ng-click="selectNodeLabel(node)">{{node[nodeLabel]}}</span>' +
-                        '<treeview ng-hide="node.collapsed" tree-model="node[nodeChildren]" node-id="{{nodeId}}"' +
+                        '<treeview ng-hide="node.collapsed" tree-model="node[nodeChildren]" node-id="{{nodeId}}" selected-nodes="[]" allow-multi-selection="allowMultiSelection"' +
                         ' node-label="{{nodeLabel}}" node-children="{{nodeChildren}}" on-node-select="onNodeSelect" state="state" />' +
                         '</li>' +
                         '</ul>';
@@ -59,12 +62,17 @@
                     };
 
                     scope.selectNodeLabel = function(selectedNode) {
-                        if (scope.state.currentNode && scope.state.currentNode.selected) {
-                            scope.state.currentNode.selected = undefined;
-                        }
+                        if (!scope.allowMultiSelection) {
+                            if (scope.state.currentNode && scope.state.currentNode.selected) {
+                                scope.state.currentNode.selected = undefined;
+                            }
 
-                        //set highlight to selected node
-                        selectedNode.selected = true;
+                            //set highlight to selected node
+                            selectedNode.selected = true;
+                        } else {
+                            // set highlight to selected node
+                            selectedNode.selected = !selectedNode.selected;
+                        }
 
                         //set currentNode
                         scope.state.currentNode = selectedNode;
