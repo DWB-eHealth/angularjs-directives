@@ -90,7 +90,7 @@ describe("week selector", function() {
             scope.language = 'ar';
             scope.$apply();
 
-            expect(scope.toDate(1)).toEqual("فبراير/ شباط");
+            expect(scope.toDate(1)).toEqual("شباط فبراير");
 
         });
 
