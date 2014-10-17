@@ -32,7 +32,7 @@ describe('notIn', function() {
         $scope.$digest();
 
         expect(form.projectName.$invalid).toBe(false);
-        expect(form.projectName.$error.isWithin).toBe(false);
+        expect(form.projectName.$error.isWithin).toBe(undefined);
     });
 
     it('should set invalid to false if no value is specified', function() {

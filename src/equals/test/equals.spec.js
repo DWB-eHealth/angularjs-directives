@@ -34,6 +34,6 @@ describe('equals', function() {
         $scope.$digest();
 
         expect(form.confPassword.$invalid).toBe(false);
-        expect(form.confPassword.$error.notEqual).toBe(false);
+        expect(form.confPassword.$error.notEqual).toBe(undefined);
     });
 });
