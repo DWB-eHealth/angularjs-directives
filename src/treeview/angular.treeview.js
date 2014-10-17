@@ -37,7 +37,7 @@
                     'onNodeSelect': '=',
                     'state': '=?',
                     'selectedNodes': '=',
-                    'allowMultiSelection': '='
+                    'allowMultiSelection': '=?'
                 },
                 link: function(scope, element, attrs) {
                     scope.nodeId = scope.nodeId || 'id';
