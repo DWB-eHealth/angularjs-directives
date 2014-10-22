@@ -91,7 +91,6 @@ describe("week selector", function() {
             scope.$apply();
 
             expect(scope.toDate(1)).toEqual("شباط فبراير");
-
         });
 
         it('should populate from start month when year selected is start date year', function() {

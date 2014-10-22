@@ -50,9 +50,11 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         };
 
         $scope.populateWeeks = function() {
-            $scope.week = undefined;
             $scope.weeks = [];
-            if (!$scope.year || (!$scope.month && $scope.month !== 0)) return;
+            if (!$scope.year || (!$scope.month && $scope.month !== 0)) {
+                $scope.week = undefined;
+                return;
+            }
             var m = moment().year($scope.year).month($scope.month).date(1);
 
             while ((m.startOf("isoWeek").month() === $scope.month || m.endOf("isoWeek").month() === $scope.month) && m.startOf("isoWeek").isBefore(moment())) {
@@ -61,10 +63,29 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             }
             if (moment().year() === $scope.year && moment().month() === $scope.month)
                 $scope.week = $scope.weeks[$scope.weeks.length - 1];
+            else if ($scope.week && moment($scope.week.startOfWeek).month() !== $scope.month)
+                $scope.week = undefined;
+        };
+
+        var findWeek = function(week) {
+            for (i = 0; i < $scope.weeks.length; i++) {
+                if ($scope.weeks[i].weekNumber === week.weekNumber)
+                    return $scope.weeks[i];
+            }
+            return;
         };
 
         $scope.$watch('startDate', function() {
             init();
+        });
+
+        $scope.$watch('month', function() {
+            $scope.populateWeeks();
+        });
+
+        $scope.$watch('week', function() {
+            if ($scope.week)
+                $scope.week = findWeek($scope.week);
         });
 
         $scope.$watch('language', function() {
