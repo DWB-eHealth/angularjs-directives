@@ -47,11 +47,16 @@
                     scope.state = scope.state || {};
                     scope.allowMultiSelection = scope.allowMultiSelection || false;
 
+                    var selectedNodes = [];
+                    if (scope.state.currentNode && scope.state.currentNode.selected) {
+                        selectedNodes.push(scope.state.currentNode);
+                    }
+
                     var template =
                         '<ul>' +
                         '<li ng-repeat="node in treeModel">' +
                         '<span ng-class="{collapsed: node[nodeChildren].length && node.collapsed, expanded: node[nodeChildren].length && !node.collapsed, normal: !node[nodeChildren].length}"  ng-click="selectNodeHead(node)"></span>' +
-                        '<span ng-class="{selected: node.selected}" data-ng-click="selectNodeLabel(node)">{{node[nodeLabel]}}</span>' +
+                        '<span ng-class="{selected: node.selected}" data-ng-click="selectNodeLabel(node, $event)">{{node[nodeLabel]}}</span>' +
                         '<treeview ng-hide="node.collapsed" tree-model="node[nodeChildren]" node-id="{{nodeId}}" selected-nodes="[]" allow-multi-selection="allowMultiSelection"' +
                         ' node-label="{{nodeLabel}}" node-children="{{nodeChildren}}" on-node-select="onNodeSelect" state="state" />' +
                         '</li>' +
@@ -61,17 +66,26 @@
                         selectedNode.collapsed = !selectedNode.collapsed;
                     };
 
-                    scope.selectNodeLabel = function(selectedNode) {
-                        if (!scope.allowMultiSelection) {
-                            if (scope.state.currentNode && scope.state.currentNode.selected) {
-                                scope.state.currentNode.selected = undefined;
+                    scope.selectNodeLabel = function(selectedNode, $event) {
+                        if (scope.allowMultiSelection && ($event.ctrlClick || $event.shiftKey || $event.metaKey)) {
+                            // set highlight to selected node
+                            selectedNode.selected = !selectedNode.selected;
+
+                            if (selectedNode.selected) {
+                                selectedNodes.push(selectedNode);
+                            } else {
+                                var index = selectedNodes.indexOf(selectedNode);
+                                if (index > -1) selectedNodes.splice(index, 1);
                             }
+                        } else {
+                            for (var i = 0; i < selectedNodes.length; i++) {
+                                selectedNodes[i].selected = undefined;
+                            }
+                            selectedNodes = [];
 
                             //set highlight to selected node
                             selectedNode.selected = true;
-                        } else {
-                            // set highlight to selected node
-                            selectedNode.selected = !selectedNode.selected;
+                            selectedNodes.push(selectedNode);
                         }
 
                         //set currentNode
