@@ -83,6 +83,10 @@
                             }
                             selectedNodes = [];
 
+                            if (scope.state.currentNode && scope.state.currentNode.selected) {
+                                scope.state.currentNode.selected = false;
+                            }
+
                             //set highlight to selected node
                             selectedNode.selected = true;
                             selectedNodes.push(selectedNode);
