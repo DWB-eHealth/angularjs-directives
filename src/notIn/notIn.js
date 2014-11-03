@@ -18,9 +18,13 @@ notInModule.directive('notIn', function() {
             });
 
             var doesNotContain = function(needle, haystack) {
-                return !haystack.some(function(value) {
-                    return value.toLowerCase() === needle.toLowerCase();
-                });
+                if (haystack) {
+                    return !haystack.some(function(value) {
+                        return value.toLowerCase() === needle.toLowerCase();
+                    });
+                } else {
+                    return true;
+                }
             };
         },
     };
