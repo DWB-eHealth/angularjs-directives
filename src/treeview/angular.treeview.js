@@ -45,11 +45,11 @@
                     scope.nodeChildren = scope.nodeChildren || 'children';
                     scope.onNodeSelect = scope.onNodeSelect || function() {};
                     scope.state = scope.state || {};
+                    scope.selectedNodes = scope.selectedNodes || [];
                     scope.allowMultiSelection = scope.allowMultiSelection || false;
 
-                    var selectedNodes = [];
-                    if (scope.state.currentNode && scope.state.currentNode.selected) {
-                        selectedNodes.push(scope.state.currentNode);
+                    if (scope.state.currentNode && scope.state.currentNode.selected && scope.selectedNodes.indexOf(scope.state.currentNode) < 0) {
+                        scope.selectedNodes.push(scope.state.currentNode);
                     }
 
                     var template =
@@ -57,7 +57,7 @@
                         '<li ng-repeat="node in treeModel">' +
                         '<span ng-class="{collapsed: node[nodeChildren].length && node.collapsed, expanded: node[nodeChildren].length && !node.collapsed, normal: !node[nodeChildren].length}"  ng-click="selectNodeHead(node)"></span>' +
                         '<span ng-class="{selected: node.selected}" data-ng-click="selectNodeLabel(node, $event)">{{node[nodeLabel]}}</span>' +
-                        '<treeview ng-hide="node.collapsed" tree-model="node[nodeChildren]" node-id="{{nodeId}}" selected-nodes="[]" allow-multi-selection="allowMultiSelection"' +
+                        '<treeview ng-hide="node.collapsed" tree-model="node[nodeChildren]" node-id="{{nodeId}}" selected-nodes="selectedNodes" allow-multi-selection="allowMultiSelection"' +
                         ' node-label="{{nodeLabel}}" node-children="{{nodeChildren}}" on-node-select="onNodeSelect" state="state" />' +
                         '</li>' +
                         '</ul>';
@@ -72,16 +72,16 @@
                             selectedNode.selected = !selectedNode.selected;
 
                             if (selectedNode.selected) {
-                                selectedNodes.push(selectedNode);
+                                scope.selectedNodes.push(selectedNode);
                             } else {
-                                var index = selectedNodes.indexOf(selectedNode);
-                                if (index > -1) selectedNodes.splice(index, 1);
+                                var index = scope.selectedNodes.indexOf(selectedNode);
+                                if (index > -1) scope.selectedNodes.splice(index, 1);
                             }
                         } else {
-                            for (var i = 0; i < selectedNodes.length; i++) {
-                                selectedNodes[i].selected = undefined;
+                            for (var i = 0; i < scope.selectedNodes.length; i++) {
+                                scope.selectedNodes[i].selected = undefined;
                             }
-                            selectedNodes = [];
+                            scope.selectedNodes.splice(0, scope.selectedNodes.length);
 
                             if (scope.state.currentNode && scope.state.currentNode.selected) {
                                 scope.state.currentNode.selected = false;
@@ -89,7 +89,7 @@
 
                             //set highlight to selected node
                             selectedNode.selected = true;
-                            selectedNodes.push(selectedNode);
+                            scope.selectedNodes.push(selectedNode);
                         }
 
                         //set currentNode
