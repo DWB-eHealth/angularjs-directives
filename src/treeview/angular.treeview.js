@@ -30,13 +30,13 @@
             return {
                 restrict: 'E',
                 scope: {
-                    'treeModel': '=',
+                    'treeModel': '=?',
                     'nodeLabel': '@',
                     'nodeId': '@',
                     'nodeChildren': '@',
-                    'onNodeSelect': '=',
+                    'onNodeSelect': '=?',
                     'state': '=?',
-                    'selectedNodes': '=',
+                    'selectedNodes': '=?',
                     'allowMultiSelection': '=?'
                 },
                 link: function(scope, element, attrs) {
