@@ -48,7 +48,7 @@ multiselectModule.controller('MultiSelectController', ['$scope',
         };
 
         var updateView = function() {
-            ngModelCtrl.$setViewValue($scope.rightList);
+            ngModelCtrl.$setViewValue(JSON.parse(JSON.stringify($scope.rightList)));
             ngModelCtrl.$render();
         };
 
