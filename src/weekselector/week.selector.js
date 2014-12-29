@@ -36,10 +36,12 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
 
         var getWeek = function(m) {
             var weekNumber = m.isoWeek();
+            var weekYear = m.format("GGGG");
             var startOfWeek = m.startOf("isoWeek").format("YYYY-MM-DD");
             var endOfWeek = m.endOf("isoWeek").format("YYYY-MM-DD");
             return {
                 'weekNumber': weekNumber,
+                'weekYear': weekYear,
                 'startOfWeek': startOfWeek,
                 'endOfWeek': endOfWeek
             };
@@ -89,7 +91,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         });
 
         $scope.$watch('language', function() {
-            moment.lang($scope.language);
+            moment.locale($scope.language);
         });
 
         $scope.populateMonths = function() {

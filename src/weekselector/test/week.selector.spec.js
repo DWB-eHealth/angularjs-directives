@@ -86,11 +86,6 @@ describe("week selector", function() {
             scope.$apply();
 
             expect(scope.toDate(1)).toEqual("févr.");
-
-            scope.language = 'ar';
-            scope.$apply();
-
-            expect(scope.toDate(1)).toEqual("شباط فبراير");
         });
 
         it('should populate from start month when year selected is start date year', function() {
@@ -128,26 +123,32 @@ describe("week selector", function() {
 
             expect(scope.weeks).toEqual([{
                 weekNumber: 9,
+                weekYear: '2014',
                 startOfWeek: '2014-02-24',
                 endOfWeek: '2014-03-02'
             }, {
                 weekNumber: 10,
+                weekYear: '2014',
                 startOfWeek: '2014-03-03',
                 endOfWeek: '2014-03-09'
             }, {
                 weekNumber: 11,
+                weekYear: '2014',
                 startOfWeek: '2014-03-10',
                 endOfWeek: '2014-03-16'
             }, {
                 weekNumber: 12,
+                weekYear: '2014',
                 startOfWeek: '2014-03-17',
                 endOfWeek: '2014-03-23'
             }, {
                 weekNumber: 13,
+                weekYear: '2014',
                 startOfWeek: '2014-03-24',
                 endOfWeek: '2014-03-30'
             }, {
                 weekNumber: 14,
+                weekYear: '2014',
                 startOfWeek: '2014-03-31',
                 endOfWeek: '2014-04-06'
             }]);
@@ -160,10 +161,12 @@ describe("week selector", function() {
 
             expect(scope.weeks).toEqual([{
                 weekNumber: 14,
+                weekYear: '2014',
                 startOfWeek: '2014-03-31',
                 endOfWeek: '2014-04-06'
             }, {
                 weekNumber: 15,
+                weekYear: '2014',
                 startOfWeek: '2014-04-07',
                 endOfWeek: '2014-04-13'
             }]);
