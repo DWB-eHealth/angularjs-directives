@@ -81,6 +81,10 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             init();
         });
 
+        $scope.$watch('year', function() {
+            $scope.populateMonths(false);
+        });
+
         $scope.$watch('month', function() {
             $scope.populateWeeks();
         });
@@ -94,9 +98,11 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             moment.locale($scope.language);
         });
 
-        $scope.populateMonths = function() {
-            $scope.month = undefined;
-            $scope.week = undefined;
+        $scope.populateMonths = function(changedThruUI) {
+            if (changedThruUI || !$scope.year) {
+                $scope.month = undefined;
+                $scope.week = undefined;
+            }
             $scope.months = [];
             $scope.weeks = [];
             if (!$scope.year)

@@ -48,7 +48,7 @@ describe("week selector", function() {
         it('should populate all months when year selected is not current year', function() {
             scope.year = 2013;
 
-            scope.populateMonths();
+            scope.populateMonths(true);
 
             expect(scope.months).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
             expect(scope.month).toEqual(undefined);
@@ -105,6 +105,15 @@ describe("week selector", function() {
             expect(scope.week).toEqual(undefined);
             expect(scope.months).toEqual([]);
             expect(scope.weeks).toEqual([]);
+        });
+
+        it('should retain the values of month and week if year is changed dynamically through code', function() {
+            scope.year = 2013;
+
+            scope.populateMonths(false);
+
+            expect(scope.month).toEqual(3);
+            expect(scope.week.weekNumber).toEqual(15);
         });
 
         it('should initialize weeks if month is reset', function() {

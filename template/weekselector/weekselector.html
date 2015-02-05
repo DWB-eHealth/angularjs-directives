@@ -1,11 +1,10 @@
 <ul class="form">
     <li class="form-group">
         <label for="year">{{labels.yearLabel}}</label>
-        <select name="year" id="year" class="input-sm" ng-model="year" ng-options="y for y in years" ng-change="populateMonths(); onChange();">
+        <select name="year" id="year" class="input-sm" ng-model="year" ng-options="y for y in years" ng-change="populateMonths(true); onChange();">
             <option value="">-</option>
         </select>
     </li>
-
     <li class="form-group">
         <label for="month">{{labels.monthLabel}}</label>
         <select name="month" id="month" class="input-sm" ng-model="month" ng-options="toDate(m) for m in months" ng-change="populateWeeks(); onChange();">
