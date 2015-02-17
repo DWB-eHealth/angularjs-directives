@@ -37,8 +37,8 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         var getWeek = function(m) {
             var weekNumber = m.isoWeek();
             var weekYear = m.isoWeekYear();
-            var startOfWeek = m.startOf("isoWeek").format("YYYY-MM-DD");
-            var endOfWeek = m.endOf("isoWeek").format("YYYY-MM-DD");
+            var startOfWeek = m.startOf("isoWeek").toDate().toLocaleDateString();
+            var endOfWeek = m.endOf("isoWeek").toDate().toLocaleDateString();
             return {
                 'weekNumber': weekNumber,
                 'weekYear': weekYear,
