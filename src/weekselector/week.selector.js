@@ -37,18 +37,22 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         var getWeek = function(m) {
             var weekNumber = m.isoWeek();
             var weekYear = m.isoWeekYear();
+            var startOfWeekForDisplay = m.startOf("isoWeek").toDate().toLocaleDateString();
+            var endOfWeekForDisplay = m.endOf("isoWeek").toDate().toLocaleDateString();
             var startOfWeek = m.startOf("isoWeek").format("YYYY-MM-DD");
             var endOfWeek = m.endOf("isoWeek").format("YYYY-MM-DD");
             return {
                 'weekNumber': weekNumber,
                 'weekYear': weekYear,
                 'startOfWeek': startOfWeek,
+                'startOfWeekForDisplay': startOfWeekForDisplay,
+                'endOfWeekForDisplay': endOfWeekForDisplay,
                 'endOfWeek': endOfWeek
             };
         };
 
         $scope.formatWeek = function(w) {
-            return "W " + w.weekNumber + " - " + w.startOfWeek + " - " + w.endOfWeek;
+            return "W " + w.weekNumber + " - " + w.startOfWeekForDisplay + " - " + w.endOfWeekForDisplay;
         };
 
         $scope.populateWeeks = function() {
