@@ -74,7 +74,7 @@ describe("week selector", function() {
         });
 
         it('should reload data when startDate changes', function() {
-            scope.startDate = "2011-01-02";
+            scope.startDate = "2011-01-02"
 
             scope.$apply();
 
@@ -130,37 +130,37 @@ describe("week selector", function() {
             scope.month = 2;
             scope.populateWeeks();
 
-            expect(scope.weeks[0]).toEqual({
+            expect(scope.weeks).toEqual([{
                 weekNumber: 9,
                 weekYear: 2014,
-                startOfWeek: moment('02-24-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('03-02-2014').endOf("isoWeek").toDate().toLocaleDateString()
+                startOfWeek: '2014-02-24',
+                endOfWeek: '2014-03-02'
             }, {
                 weekNumber: 10,
                 weekYear: 2014,
-                startOfWeek: moment('03-03-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('03-09-2014').endOf("isoWeek").toDate().toLocaleDateString()
+                startOfWeek: '2014-03-03',
+                endOfWeek: '2014-03-09'
             }, {
                 weekNumber: 11,
                 weekYear: 2014,
-                startOfWeek: moment('03-10-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('03-16-2014').endOf("isoWeek").toDate().toLocaleDateString()
+                startOfWeek: '2014-03-10',
+                endOfWeek: '2014-03-16'
             }, {
                 weekNumber: 12,
                 weekYear: 2014,
-                startOfWeek: moment('03-17-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('03-23-2014').endOf("isoWeek").toDate().toLocaleDateString()
+                startOfWeek: '2014-03-17',
+                endOfWeek: '2014-03-23'
             }, {
                 weekNumber: 13,
                 weekYear: 2014,
-                startOfWeek: moment('03-24-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('03-30-2014').endOf("isoWeek").toDate().toLocaleDateString()
+                startOfWeek: '2014-03-24',
+                endOfWeek: '2014-03-30'
             }, {
                 weekNumber: 14,
                 weekYear: 2014,
-                startOfWeek: moment('03-31-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('04-06-2014').endOf("isoWeek").toDate().toLocaleDateString()
-            });
+                startOfWeek: '2014-03-31',
+                endOfWeek: '2014-04-06'
+            }]);
         });
 
         it('should populate weeks till last week for month when date selected is today', function() {
@@ -171,13 +171,13 @@ describe("week selector", function() {
             expect(scope.weeks).toEqual([{
                 weekNumber: 14,
                 weekYear: 2014,
-                startOfWeek: moment('03-31-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('04-06-2014').endOf("isoWeek").toDate().toLocaleDateString()
+                startOfWeek: '2014-03-31',
+                endOfWeek: '2014-04-06'
             }, {
                 weekNumber: 15,
                 weekYear: 2014,
-                startOfWeek: moment('04-07-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: moment('04-13-2014').endOf("isoWeek").toDate().toLocaleDateString()
+                startOfWeek: '2014-04-07',
+                endOfWeek: '2014-04-13'
             }]);
         });
     });
