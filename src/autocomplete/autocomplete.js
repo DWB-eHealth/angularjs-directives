@@ -259,7 +259,8 @@ app.directive('autocomplete', function() {
 
             });
         },
-        template: '\
+        template: function(element, attrs) {
+            return '\
         <div class="autocomplete {{ attrs.class }}" id="{{ attrs.id }}">\
           <input\
             type="text"\
@@ -278,7 +279,8 @@ app.directive('autocomplete', function() {
               ng-click="select(suggestion)"\
               ng-bind-html="suggestion | highlight:searchParam"></li>\
           </ul>\
-        </div>'
+        </div>';
+	}    
     };
 });
 
