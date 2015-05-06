@@ -326,16 +326,7 @@
                         var row = null;
                         var rowTop = null;
 
-                        if (which === KEY_EN && scope.results) {
-                            if (scope.currentIndex >= 0 && scope.currentIndex < scope.results.length) {
-                                event.preventDefault();
-                                scope.selectResult(scope.results[scope.currentIndex]);
-                            } else {
-                                handleOverrideSuggestions(event);
-                                clearResults();
-                            }
-                            scope.$apply();
-                        } else if (which === KEY_DW && scope.results) {
+                        if (which === KEY_DW && scope.results) {
                             event.preventDefault();
                             if ((scope.currentIndex + 1) < scope.results.length && scope.showDropdown) {
                                 scope.$apply(function() {
@@ -372,7 +363,7 @@
                                     inputField.val(scope.searchStr);
                                 });
                             }
-                        } else if (which === KEY_TAB) {
+                        } else if (which === KEY_TAB || which === KEY_EN) {
                             if (scope.results && scope.results.length > 0 && scope.showDropdown) {
                                 if (scope.currentIndex === -1 && scope.overrideSuggestions) {
                                     // intentionally not sending event so that it does not
