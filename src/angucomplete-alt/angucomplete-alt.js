@@ -384,7 +384,7 @@
                                     handleOverrideSuggestions();
                                 }
 
-                                function checkIfValidSearchString(value, index, ar) {
+                                var checkIfValidSearchString = function(value, index, ar) {
                                     if (value.name === scope.searchStr)
                                         return true;
                                 }
