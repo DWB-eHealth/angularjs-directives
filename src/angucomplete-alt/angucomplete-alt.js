@@ -383,6 +383,15 @@
                                 if (scope.searchStr && scope.searchStr.length > 0) {
                                     handleOverrideSuggestions();
                                 }
+
+                                function checkIfValidSearchString(value, index, ar) {
+                                    if (value.name === scope.searchStr)
+                                        return true;
+                                }
+
+                                var validSearchString = scope.localData.some(checkIfValidSearchString);
+                                if (!validSearchString)
+                                    scope.searchStr = "";
                             }
                         }
                     }
