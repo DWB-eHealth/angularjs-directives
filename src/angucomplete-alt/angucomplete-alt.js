@@ -624,6 +624,7 @@
                         } else if (str.length === 0 && minlength === 0) {
                             scope.searching = false;
                             showAll();
+                            callOrAssign(undefined);
                         }
 
                         if (scope.inputChanged) {
