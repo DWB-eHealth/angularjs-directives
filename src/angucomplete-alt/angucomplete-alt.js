@@ -204,6 +204,11 @@
                         return result;
                     }
 
+                    var checkIfValidSearchString = function(value, index, ar) {
+                        if (value.name === scope.searchStr)
+                            return true;
+                    }
+
                     function findMatchString(target, str) {
                         var result, matches, re;
                         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
@@ -382,11 +387,6 @@
                                 // prevent default tab behavior
                                 if (scope.searchStr && scope.searchStr.length > 0) {
                                     handleOverrideSuggestions();
-                                }
-
-                                var checkIfValidSearchString = function(value, index, ar) {
-                                    if (value.name === scope.searchStr)
-                                        return true;
                                 }
 
                                 var validSearchString = scope.localData.some(checkIfValidSearchString);
@@ -582,6 +582,9 @@
 
                             if (scope.focusOut) {
                                 scope.focusOut();
+                                var validSearchString = scope.localData.some(checkIfValidSearchString);
+                                if (!validSearchString)
+                                    scope.searchStr = "";
                             }
 
                             if (scope.overrideSuggestions) {
