@@ -231,7 +231,7 @@
 
                     function handleRequired(valid) {
                         validState = scope.searchStr;
-                        if (scope.fieldRequired && ctrl) {
+                        if (scope.fieldRequired && ctrl && ctrl[scope.name]) {
                             ctrl[scope.name].$setValidity(requiredClassName, valid);
                         }
                     }
@@ -619,6 +619,9 @@
                                 scope.searchStr = null;
                             } else {
                                 scope.searchStr = result.title;
+                                if (scope.formName) {
+                                    scope.$parent[scope.formName][scope.name].$setViewValue(result.title);
+                                }
                             }
                             callOrAssign(result);
                             clearResults();
