@@ -619,9 +619,6 @@
                                 scope.searchStr = null;
                             } else {
                                 scope.searchStr = result.title;
-                                if (scope.formName) {
-                                    scope.$parent[scope.formName][scope.name].$setViewValue(result.title);
-                                }
                             }
                             callOrAssign(result);
                             clearResults();
