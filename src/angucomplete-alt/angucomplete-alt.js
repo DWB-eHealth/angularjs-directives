@@ -619,7 +619,9 @@
                                 scope.searchStr = null;
                             } else {
                                 scope.searchStr = result.title;
-                                scope.$parent[scope.formName][scope.name].$setDirty();
+                                if (scope.formName) {
+                                    scope.$parent[scope.formName][scope.name].$setDirty();
+                                }
                             }
                             callOrAssign(result);
                             clearResults();
