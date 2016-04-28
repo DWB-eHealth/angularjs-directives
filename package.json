@@ -9,5 +9,8 @@
         "karma-jasmine": "*",
         "jasmine-core": "*",
         "karma-chrome-launcher": "*"
+    },
+    "scripts": {
+      "test": "karma start"
     }
 }
