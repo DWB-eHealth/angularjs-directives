@@ -147,8 +147,7 @@ multiselectModule.directive('multiselect', function() {
             onRightItemSelect: "&",
             onMoveLeft: "&",
             name: "@",
-            selectFirstItem: "=",
-            resourceBundle: "="
+            selectFirstItem: "="
         },
         templateUrl: 'js/lib/angularjs-directives/template/multiselect/multiselect.html',
         replace: true,

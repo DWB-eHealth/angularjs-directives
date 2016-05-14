@@ -3,8 +3,7 @@
     <section class="item-box">
       <ul class="items">
         <li ng-repeat="element in leftList | orderBy:'name'" ng-click='leftSelectedItems[element[name]] = !!!leftSelectedItems[element[name]]' ng-class="{sel: leftSelectedItems[element[name]]}">
-          <span ng-if="!resourceBundle[element['id']]">{{element[name]}}</span>
-          <span ng-if="resourceBundle[element['id']]">{{resourceBundle[element["id"]]}}</span>
+          <span>{{element[name]}}</span>
         </li>
       </ul>
     </section>
@@ -17,8 +16,7 @@
     <section class="item-box">
       <ul class="items">
         <li ng-repeat="element in rightList | orderBy:'name'" ng-click="selectRightItem(element)" ng-class="{sel: rightSelectedItems[element[name]], cur: currentSelectedItem === element}">
-          <span ng-if="!resourceBundle[element['id']]">{{element[name]}}</span>
-          <span ng-if="resourceBundle[element['id']]">{{resourceBundle[element["id"]]}}</span>
+          <span>{{element[name]}}</span>
         </li>
       </ul>
     </section>
