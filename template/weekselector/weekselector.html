@@ -13,7 +13,9 @@
     </li>
 
     <li class="form-group">
-        <label for="week">{{labels.weekLabel}}</label>
+        <label for="week">{{labels.weekLabel}}
+            <i class="fa fa-info-circle" aria-hidden="true" tooltip-placement="top" tooltip-trigger="click mouseenter" tooltip={{labels.weekSelector}}></i>
+        </label>
         <select name="week" id="week" class="input-sm" ng-model="week" ng-options="formatWeek(w) for w in weeks" ng-change="onChange();">
             <option value="">-</option>
         </select>
