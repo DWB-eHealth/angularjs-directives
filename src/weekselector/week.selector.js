@@ -63,7 +63,11 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             }
             var m = moment().year($scope.year).month($scope.month).date(1);
 
-            while ((m.startOf("isoWeek").month() === $scope.month || m.endOf("isoWeek").month() === $scope.month) && m.startOf("isoWeek").isBefore(moment())) {
+            if ((m.startOf("isoWeek").month() < $scope.month) || (m.startOf("iosWeek").year() < $scope.year)) {
+                m.isoWeek(m.isoWeek() + 1);
+            }
+
+            while ((m.startOf("isoWeek").month() === $scope.month) && m.startOf("isoWeek").isBefore(moment())) {
                 $scope.weeks.push(getWeek(m));
                 m.isoWeek(m.isoWeek() + 1);
             }
