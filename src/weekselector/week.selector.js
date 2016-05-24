@@ -82,7 +82,6 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
                 if ($scope.weeks[i].weekNumber === week.weekNumber)
                     return $scope.weeks[i];
             }
-            return;
         };
 
         $scope.$watch('startDate', function() {
@@ -100,10 +99,6 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         $scope.$watch('week', function() {
             if ($scope.week)
                 $scope.week = findWeek($scope.week);
-        });
-
-        $scope.$watch('language', function() {
-            moment.locale($scope.language);
         });
 
         $scope.populateMonths = function(changedThruUI) {
@@ -126,7 +121,7 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
         };
 
         $scope.toDate = function(m) {
-            return moment.monthsShort(m);
+            return moment.localeData($scope.locale).monthsShort(moment({ month :m }), m);
         };
 
         init();
@@ -143,7 +138,7 @@ weekselectorModule.directive('weekselector', function() {
             'startDate': "=",
             'onChange': "&?",
             'labels': "=",
-            'language': "="
+            'locale': "="
         },
         templateUrl: 'js/lib/angularjs-directives/template/weekselector/weekselector.html',
         replace: true,
