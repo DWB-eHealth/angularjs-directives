@@ -82,10 +82,10 @@ describe("week selector", function() {
         });
 
         it('should return month in appropriate language', function() {
-            scope.language = 'fr';
+            scope.locale = 'fr';
             scope.$apply();
 
-            expect(scope.toDate(1)).toEqual("févr.");
+            expect(scope.toDate(1)).toEqual("janv.");
         });
 
         it('should populate from start month when year selected is start date year', function() {
