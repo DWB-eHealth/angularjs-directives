@@ -96,7 +96,7 @@
                     matchClass: '@',
                     clearSelected: '@',
                     overrideSuggestions: '@',
-                    fieldRequired: '@',
+                    fieldRequired: '=',
                     fieldRequiredClass: '@',
                     inputChanged: '=',
                     autoMatch: '@',
