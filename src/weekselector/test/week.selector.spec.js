@@ -70,7 +70,7 @@ describe("week selector", function() {
             scope.populateMonths();
 
             expect(scope.month).toEqual(3);
-            expect(scope.weeks.length).toEqual(1);
+            expect(scope.weeks.length).toEqual(2);
         });
 
         it('should reload data when startDate changes', function() {
@@ -158,28 +158,22 @@ describe("week selector", function() {
                 startOfWeekForDisplay: moment('03-24-2014').startOf("isoWeek").toDate().toLocaleDateString(),
                 endOfWeekForDisplay: moment('03-30-2014').endOf("isoWeek").toDate().toLocaleDateString(),
                 endOfWeek: '2014-03-30'
-            }, {
+            }]);
+        });
+
+        it('should populate weeks till last week for month when date selected is today', function() {
+            today = "2014-03-31T11:59:01.913Z";
+            scope.year = 2014;
+            scope.month = 3;
+            scope.populateWeeks();
+
+            expect(scope.weeks).toEqual([ {
                 weekNumber: 14,
                 weekYear: 2014,
                 startOfWeek: '2014-03-31',
                 startOfWeekForDisplay: moment('03-31-2014').startOf("isoWeek").toDate().toLocaleDateString(),
                 endOfWeekForDisplay: moment('04-06-2014').endOf("isoWeek").toDate().toLocaleDateString(),
                 endOfWeek: '2014-04-06'
-            }]);
-        });
-
-        it('should populate weeks till last week for month when date selected is today', function() {
-            scope.year = 2014;
-            scope.month = 3;
-            scope.populateWeeks();
-
-            expect(scope.weeks).toEqual([ {
-                weekNumber: 15,
-                weekYear: 2014,
-                startOfWeek: '2014-04-07',
-                 startOfWeekForDisplay: moment('04-07-2014').startOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeekForDisplay: moment('04-13-2014').endOf("isoWeek").toDate().toLocaleDateString(),
-                endOfWeek: '2014-04-13'
             }]);
         });
     });
