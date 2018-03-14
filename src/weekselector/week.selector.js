@@ -11,11 +11,17 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             $scope.startDate = $scope.startDate || "1900-01-01";
             startDate = moment(new Date($scope.startDate));
             var today = moment();
-            var currentYear = today.year();
-            for (var i = startDate.year(); i <= currentYear; i++) {
+            var year = today.year();
+            var ifEPIWeekFallInNextYear = today.startOf("isoWeek").year() != today.endOf("isoWeek").year();
+            var ifEPIWeekFallInNextMonth = today.daysInMonth() - today.startOf("isoWeek").date() < 3;
+            if (ifEPIWeekFallInNextYear && ifEPIWeekFallInNextMonth) {
+              year = today.endOf("isoWeek").year();
+            }
+
+            for (var i = startDate.year(); i <= year; i++) {
                 $scope.years.push(i);
             }
-            defaultToCurrentWeek(currentYear);
+            defaultToCurrentWeek(moment().year());
         };
 
         var defaultToCurrentWeek = function(currentYear) {
@@ -81,8 +87,6 @@ weekselectorModule.controller('WeekSelectorController', ['$scope',
             }
             if (moment().year() === $scope.year && moment().month() === $scope.month)
                 $scope.week = $scope.weeks[$scope.weeks.length - 1];
-            else if ($scope.week && moment($scope.week.startOfWeek).month() !== $scope.month)
-                $scope.week = undefined;
         };
 
         var findWeek = function(week) {

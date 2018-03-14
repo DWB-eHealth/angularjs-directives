@@ -205,5 +205,34 @@ describe("week selector", function() {
             expect(scope.startDate).toEqual("1900-01-01");
             expect(scope.years.length).toEqual(2014 - 1900 + 1);
         });
+
+
     });
+
+
+   describe("with EPI week falling in next year", function(){
+
+     var scope, _Date, today;
+
+     beforeEach(module('ui.weekselector'));
+
+     beforeEach(inject(function($controller, $rootScope) {
+       today = "2019-12-31T10:59:01.913Z";
+       _Date = Date;
+       Date = function(someDay) {
+         return someDay ? new _Date(someDay) : new _Date(today);
+       };
+       Date.UTC = _Date.UTC;
+
+       scope = $rootScope.$new();
+       $controller('WeekSelectorController', {
+         $scope: scope
+       });
+     }));
+
+     it('years should have next year', function() {
+        expect(scope.years.length).toEqual(2020 - 1900 + 1);
+     });
+
+   })
 });
